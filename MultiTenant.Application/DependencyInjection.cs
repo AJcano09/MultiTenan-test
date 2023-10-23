@@ -21,8 +21,6 @@ public static class DependencyInjection
         services.AddTransient<IGenericRepository<Organization>, OrganizationRepository>();
         services.AddTransient<IGenericRepository<Product>, ProductRepository>();
         services.AddTransient<IGenericRepository<User>, UserRepository>();
-        services.AddTransient<IDbContext, ProductDbContext>();
-        services.AddTransient<IDbContext, OrganizationsDbContext>();
         services.AddTransient<IMigrationService, MigrationService>();
         return services;
     }
