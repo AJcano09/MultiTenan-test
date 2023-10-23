@@ -4,11 +4,7 @@
         <TargetFramework>net6.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
+        <RootNamespace>MultiTenant.Domain</RootNamespace>
     </PropertyGroup>
-
-    <ItemGroup>
-      <ProjectReference Include="..\MultinTenan.Common\MultinTenan.Common.csproj" />
-      <ProjectReference Include="..\MultinTenan.Domain\MultinTenan.Domain.csproj" />
-    </ItemGroup>
 
 </Project>
