@@ -3,7 +3,7 @@ using MultiTenant.Domain.Entities;
 
 namespace Multitenant.Infraestructure.Database.Organization.Migrations;
 
-[Migration(2)]
+[Migration(202310231546)]
 public class SeedInitialData : Migration
 {
     public override void Up()
@@ -22,6 +22,5 @@ public class SeedInitialData : Migration
 
     public override void Down()
     {
-        throw new NotImplementedException();
     }
 }

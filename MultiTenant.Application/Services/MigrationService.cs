@@ -31,18 +31,20 @@ public class MigrationService : IMigrationService
         var serviceProvider = CreateServicesForOrganization(connectionString);
         using var scope = serviceProvider.CreateScope();
         var runner = scope.ServiceProvider.GetRequiredService<IMigrationRunner>(); 
-        runner.MigrateUp();
+        runner.MigrateUp(202310231545);
+        runner.MigrateUp(202310231546);
     }
     
     public void RunMigrationForProducts()
     {
-        var dbNameFromTenant = _contextAccessor.HttpContext.Items[Constants.SLUG_TENANT].ToString() ;
+        var dbNameFromTenant = string.IsNullOrEmpty(_contextAccessor.HttpContext?.Items[Constants.SLUG_TENANT]?.ToString()) ?
+            "master": _contextAccessor.HttpContext?.Items[Constants.SLUG_TENANT]?.ToString();
         var connectionString = _configuration.GetConnectionString("Products"); 
         var tenantConnectionString = string.Format(connectionString, dbNameFromTenant );
-        EnsureDatabaseExists(connectionString);
+        EnsureDatabaseExists(tenantConnectionString);
         var serviceProvider = CreateServicesForProduct(tenantConnectionString);
         var runner = serviceProvider.GetRequiredService<IMigrationRunner>();
-        runner.MigrateUp();
+        runner.MigrateUp(202010182030);
     }
     private static void EnsureDatabaseExists(string connectionString)
     {
