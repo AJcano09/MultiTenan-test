@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using MultiTenant.Application.Models;
 
 namespace MultiTenant.Api.Controllers;
-
+[Authorize]
 [ApiController]
 [Route("{slugTenant}/[controller]")]
 public class ProductsController : ControllerBase
