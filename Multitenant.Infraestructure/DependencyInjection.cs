@@ -37,7 +37,7 @@ public static class DependencyInjection
             .AddLogging(lb => lb.AddFluentMigratorConsole()).BuildServiceProvider();
         
         
-        services.AddTransient<IDatabaseConnectionFactory, DatabaseConnectionFactory>();
+        services.AddScoped<IDatabaseConnectionFactory, DatabaseConnectionFactory>();
         return services;
     }
 }

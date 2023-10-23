@@ -1,4 +1,5 @@
 using Dapper;
+using FluentMigrator.Expressions;
 using MultiTenant.Domain.Entities;
 using MultiTenant.Domain.Interfaces;
 using Multitenant.Infraestructure.Enums;
@@ -13,7 +14,6 @@ public class UserRepository :  GenericRepository<User>
         : base(factory.CreateConnection(DbProvider.UsersAndOrganizations.ToString()))
     {
         _factory = factory;
-        ;
     }
     public async Task<User?> GetUserByEmailAndPassword(string email, string password)
     {
@@ -22,6 +22,7 @@ public class UserRepository :  GenericRepository<User>
 
         const string query = "SELECT * FROM public.\"User\" u WHERE u.\"Email\"  =@Email AND u.\"Password\" = @Password";
         var result = dbConnection.QuerySingleOrDefault<User>(query, new { email, password });
+        dbConnection.Close();
         return result;
     }
 }

@@ -3,7 +3,7 @@ using MultiTenant.Domain.Entities;
 
 namespace Multitenant.Infraestructure.Database.Organization.Migrations;
 
-[Migration(1,TransactionBehavior.Default,"AddOrganizationTable")]
+[Migration(202310231545,TransactionBehavior.Default,"AddOrganizationTable")]
 public class AddOrganizationTable : Migration
 {
     public override void Up()
