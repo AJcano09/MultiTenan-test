@@ -4,5 +4,5 @@ namespace MultiTenant.Domain.Interfaces;
 
 public interface IDatabaseConnectionFactory
 {
-    IDbConnection CreateConnection(string dbProviders,string? tenantName);
+    IDbConnection CreateConnection(string dbProviders);
 }

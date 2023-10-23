@@ -1,23 +1,23 @@
 using Dapper;
-using Microsoft.AspNetCore.Http;
 using MultiTenant.Domain.Entities;
 using MultiTenant.Domain.Interfaces;
-using Multitenant.Infraestructure.Database.Organization;
+using Multitenant.Infraestructure.Enums;
 
 namespace MultiTenant.Application.Repositories;
 
 public class UserRepository :  GenericRepository<User>
 {
-    private readonly IDbContext _organizationConnection;
+    private readonly IDatabaseConnectionFactory _factory;
 
-    public UserRepository(OrganizationsDbContext organizationConnection,IHttpContextAccessor contextAccessor) 
-        : base(organizationConnection.GetConnection(string.Empty))
+    public UserRepository(IDatabaseConnectionFactory factory) 
+        : base(factory.CreateConnection(DbProvider.UsersAndOrganizations.ToString()))
     {
-        _organizationConnection = organizationConnection;
+        _factory = factory;
+        ;
     }
     public async Task<User?> GetUserByEmailAndPassword(string email, string password)
     {
-        using var dbConnection = _organizationConnection.GetConnection(string.Empty);
+        using var dbConnection = _factory.CreateConnection(DbProvider.UsersAndOrganizations.ToString());
         dbConnection.Open();
 
         const string query = "SELECT * FROM public.\"User\" u WHERE u.\"Email\"  =@Email AND u.\"Password\" = @Password";
