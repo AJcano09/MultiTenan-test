@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <RootNamespace>MultiTenant.Application</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\MultiTenant.Domain\MultiTenant.Domain.csproj" />
+      <ProjectReference Include="..\Multitenant.Infraestructure\Multitenant.Infraestructure.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Reference Include="Npgsql">
+        <HintPath>..\..\..\.nuget\packages\npgsql\7.0.6\lib\net6.0\Npgsql.dll</HintPath>
+      </Reference>
+    </ItemGroup>
+
+</Project>
