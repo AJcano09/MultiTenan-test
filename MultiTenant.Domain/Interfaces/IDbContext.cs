@@ -2,7 +2,7 @@ using System.Data;
 
 namespace MultiTenant.Domain.Interfaces;
 
-public interface IDbConnector
+public interface IDbContext
 {
     IDbConnection GetConnection(string? dbName);
 }
