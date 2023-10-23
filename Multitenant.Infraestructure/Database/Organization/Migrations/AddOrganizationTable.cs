@@ -10,16 +10,18 @@ public class AddOrganizationTable : Migration
     {
         Create.Table(nameof(MultiTenant.Domain.Entities.Organization))
             .WithColumn("Id").AsGuid().PrimaryKey()
-            .WithColumn("Name").AsString();
+            .WithColumn("Name").AsString()
+            .WithColumn("SlugTenant").AsString();
             
-            Create.Index("Idx_Unique_name")
+            Create.Index("Idx_Unique_SlugTenant")
                 .OnTable(nameof(MultiTenant.Domain.Entities.Organization))
-                .OnColumn("Name")
+                .OnColumn("SlugTenant")
                 .Unique();
         
         Create.Table(nameof(User))
             .WithColumn("Id").AsGuid().PrimaryKey()
             .WithColumn("Name").AsString()
+            .WithColumn("Email").AsString()
             .WithColumn("Password").AsString()
             .WithColumn("OrganizationId").AsGuid();
     }
@@ -29,6 +31,6 @@ public class AddOrganizationTable : Migration
         Delete.Table(nameof(MultiTenant.Domain.Entities.Organization));
         Delete.Table(nameof(User));
 
-        Delete.Index("Idx_Unique_name").OnTable(nameof(MultiTenant.Domain.Entities.Organization));
+        Delete.Index("Idx_Unique_SlugTenant").OnTable(nameof(MultiTenant.Domain.Entities.Organization));
     }
 }

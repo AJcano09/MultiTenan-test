@@ -4,7 +4,7 @@ using Multitenant.Infraestructure.Enums;
 
 namespace Multitenant.Infraestructure.Database.ProductByOrganization;
 
-public class ProductDbContext :IDbConnector
+public class ProductDbContext :IDbContext
 {
     private readonly IDatabaseConnectionFactory _connectionFactory;
 

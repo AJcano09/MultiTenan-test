@@ -1,4 +1,6 @@
-namespace MultiTenan.Api.Middleware;
+using MultiTenant.Application.Constant;
+
+namespace MultiTenant.Api.Middleware;
 
 public class TenantMiddleware
 {
@@ -15,7 +17,7 @@ public class TenantMiddleware
         if (path is { Length: > 1 })
         {
             var tenantName = path[1];
-            context.Items["TenantName"] = tenantName; 
+            context.Items[ApplicationConstants.SLUG_TENANT] = tenantName; 
         }
 
         await _next(context);

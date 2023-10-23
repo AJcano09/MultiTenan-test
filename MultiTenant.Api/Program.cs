@@ -1,5 +1,5 @@
-using FluentMigrator.Runner;
-using MultiTenan.Api.Middleware;
+
+using MultiTenant.Api.Middleware;
 using MultiTenant.Application;
 using MultiTenant.Domain.Interfaces;
 using Multitenant.Infraestructure;

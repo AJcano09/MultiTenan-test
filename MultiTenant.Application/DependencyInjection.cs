@@ -15,12 +15,14 @@ public static class DependencyInjection
         services.AddTransient<Organization>();
         services.AddTransient<Product>();
         services.AddTransient<User>();
+        services.AddTransient<UserRepository>();
+        services.AddTransient<OrganizationRepository>();
         
         services.AddTransient<IGenericRepository<Organization>, OrganizationRepository>();
         services.AddTransient<IGenericRepository<Product>, ProductRepository>();
         services.AddTransient<IGenericRepository<User>, UserRepository>();
-        services.AddTransient<IDbConnector, ProductDbContext>();
-        services.AddTransient<IDbConnector, OrganizationsDbContext>();
+        services.AddTransient<IDbContext, ProductDbContext>();
+        services.AddTransient<IDbContext, OrganizationsDbContext>();
         services.AddTransient<IMigrationService, MigrationService>();
         return services;
     }

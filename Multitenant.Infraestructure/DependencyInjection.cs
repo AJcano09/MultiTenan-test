@@ -44,8 +44,8 @@ public static class DependencyInjection
         
         
         services.AddTransient<IDatabaseConnectionFactory, DatabaseConnectionFactory>();
-        services.AddTransient<IDbConnector, OrganizationsDbContext>();
-        services.AddTransient<IDbConnector, ProductDbContext>();
+        services.AddTransient<IDbContext, OrganizationsDbContext>();
+        services.AddTransient<IDbContext, ProductDbContext>();
         return services;
     }
 }

@@ -4,7 +4,7 @@
         <TargetFramework>net6.0</TargetFramework>
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
-        <RootNamespace>MultiTenan.Api</RootNamespace>
+        <RootNamespace>MultiTenant.Api</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>
@@ -17,7 +17,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\MultiTenan.Application\MultiTenan.Application.csproj" />
+      <ProjectReference Include="..\MultiTenant.Application\MultiTenant.Application.csproj" />
     </ItemGroup>
 
 </Project>
