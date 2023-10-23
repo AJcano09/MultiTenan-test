@@ -29,15 +29,15 @@ public static class DependencyInjection
                 };
             });
         services.AddScoped<ITokenService, TokenService>();
-        services.AddTransient<Organization>();
-        services.AddTransient<Product>();
-        services.AddTransient<User>();
-        services.AddTransient<UserRepository>();
-        services.AddTransient<OrganizationRepository>();
+        services.AddScoped<Organization>();
+        services.AddScoped<Product>();
+        services.AddScoped<User>();
+        services.AddScoped<UserRepository>();
+        services.AddScoped<OrganizationRepository>();
         
-        services.AddTransient<IGenericRepository<Organization>, OrganizationRepository>();
-        services.AddTransient<IGenericRepository<Product>, ProductRepository>();
-        services.AddTransient<IGenericRepository<User>, UserRepository>();
+        services.AddScoped<IGenericRepository<Organization>, OrganizationRepository>();
+        services.AddScoped<IGenericRepository<Product>, ProductRepository>();
+        services.AddScoped<IGenericRepository<User>, UserRepository>();
         services.AddTransient<IMigrationService, MigrationService>();
         return services;
     }

@@ -2,9 +2,7 @@ using FluentMigrator;
 using MultiTenant.Domain.Entities;
 
 namespace Multitenant.Infraestructure.Database.ProductByOrganization.Migrations;
-
-[Migration(4,TransactionBehavior.Default,"CreateTableProducts")]
-[Tags(tagName1:"products")]
+[Migration(202010182030,TransactionBehavior.None,"CreateTableProducts")]
 public class AddProductTable : Migration
 {
     public override void Up()

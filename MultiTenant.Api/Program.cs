@@ -3,6 +3,7 @@ using MultiTenant.Api.Middleware;
 using MultiTenant.Application;
 using MultiTenant.Domain.Interfaces;
 using Multitenant.Infraestructure;
+using Multitenant.Infraestructure.Database.ProductByOrganization.Migrations;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
