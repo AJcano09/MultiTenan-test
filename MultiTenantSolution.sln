@@ -6,7 +6,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{A8B20B05-A58
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiTenant.Domain", "MultiTenant.Domain\MultiTenant.Domain.csproj", "{5003B889-09C6-4975-8F6A-D134F16F4B5D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiTenan.Application", "MultiTenan.Application\MultiTenan.Application.csproj", "{88E87CDF-08D1-465C-82CE-76406CC79F51}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiTenant.Application", "MultiTenant.Application\MultiTenant.Application.csproj", "{88E87CDF-08D1-465C-82CE-76406CC79F51}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{F23A46FE-F53D-4052-83C4-008EEC7FB766}"
 EndProject
