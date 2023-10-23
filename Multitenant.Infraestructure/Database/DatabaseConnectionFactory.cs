@@ -1,4 +1,5 @@
 using System.Data;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using MultiTenant.Domain.Interfaces;
 using Npgsql;
@@ -8,25 +9,22 @@ namespace Multitenant.Infraestructure.Database;
 public class DatabaseConnectionFactory :IDatabaseConnectionFactory
 {
     private readonly IConfiguration _configuration;
+    private readonly IHttpContextAccessor _contextAccessor;
 
-    public DatabaseConnectionFactory(IConfiguration configuration)
+    public DatabaseConnectionFactory(IConfiguration configuration,IHttpContextAccessor contextAccessor)
     {
         _configuration = configuration;
+        _contextAccessor = contextAccessor;
     }
     
-    public IDbConnection CreateConnection(string dbConnection, string? tenantName)
+    public IDbConnection CreateConnection(string dbConnection)
     {
+        var tenantName = _contextAccessor.HttpContext.Items[Constants.SLUG_TENANT]?.ToString();
         var connectionString = string.Empty;
         switch(dbConnection)
         {
           case "UsersAndOrganizations":
-              //var organizationConnString
                   connectionString= _configuration.GetConnectionString("UsersAndOrganizations");
-              /*if (string.IsNullOrEmpty(tenantName))
-              { 
-                  connectionString = string.Format(organizationConnString, "master");
-              }
-              connectionString = string.Format(organizationConnString, tenantName);*/
               break;
            case "Products":
                var productConnString = _configuration.GetConnectionString("Products");

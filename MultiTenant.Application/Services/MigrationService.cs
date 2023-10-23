@@ -1,9 +1,11 @@
 using Dapper;
 using FluentMigrator;
 using FluentMigrator.Runner;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MultiTenant.Domain.Interfaces;
+using Multitenant.Infraestructure;
 using Multitenant.Infraestructure.Database.Organization;
 using Multitenant.Infraestructure.Database.Organization.Migrations;
 using Multitenant.Infraestructure.Database.ProductByOrganization;
@@ -14,37 +16,35 @@ namespace MultiTenant.Application.Services;
 
 public class MigrationService : IMigrationService
 {
-    private readonly ProductDbContext _productDbContext;
-    private readonly OrganizationsDbContext _organizationsDbContext;
     private readonly IConfiguration _configuration;
+    private readonly IHttpContextAccessor _contextAccessor;
 
-    public MigrationService(ProductDbContext productDbContext,
-        OrganizationsDbContext organizationsDbContext,IConfiguration configuration)
+    public MigrationService(IConfiguration configuration,IHttpContextAccessor contextAccessor)
     {
-        _productDbContext = productDbContext;
-        _organizationsDbContext = organizationsDbContext;
         _configuration = configuration;
+        _contextAccessor = contextAccessor;
     }
     public void RunMigrationForOrganization(string? dataBaseName)
     {
         var connectionString =  _configuration.GetConnectionString("UsersAndOrganizations");
-        EnsureDatabaseExists(connectionString,dataBaseName ?? "master");
+        EnsureDatabaseExists(connectionString);
         var serviceProvider = CreateServicesForOrganization(connectionString);
         using var scope = serviceProvider.CreateScope();
         var runner = scope.ServiceProvider.GetRequiredService<IMigrationRunner>(); 
         runner.MigrateUp();
     }
     
-    public void RunMigrationForProducts(string? tenantName)
+    public void RunMigrationForProducts()
     {
-        var connectionString = _configuration.GetConnectionString("Products");
-        EnsureDatabaseExists(connectionString,tenantName ?? "master");
-        var tenantConnectionString = string.Format(connectionString, tenantName);
+        var dbNameFromTenant = _contextAccessor.HttpContext.Items[Constants.SLUG_TENANT].ToString() ;
+        var connectionString = _configuration.GetConnectionString("Products"); 
+        var tenantConnectionString = string.Format(connectionString, dbNameFromTenant );
+        EnsureDatabaseExists(connectionString);
         var serviceProvider = CreateServicesForProduct(tenantConnectionString);
         var runner = serviceProvider.GetRequiredService<IMigrationRunner>();
         runner.MigrateUp();
     }
-    private static void EnsureDatabaseExists(string connectionString, string? databaseName )
+    private static void EnsureDatabaseExists(string connectionString)
     {
         var builder = new NpgsqlConnectionStringBuilder(connectionString);
         var tempDatabaseName = builder.Database;
