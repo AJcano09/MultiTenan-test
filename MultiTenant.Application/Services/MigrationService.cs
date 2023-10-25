@@ -31,8 +31,9 @@ public class MigrationService : IMigrationService
         var serviceProvider = CreateServicesForOrganization(connectionString);
         using var scope = serviceProvider.CreateScope();
         var runner = scope.ServiceProvider.GetRequiredService<IMigrationRunner>(); 
-        runner.MigrateUp(202310231545);
-        runner.MigrateUp(202310231546);
+       // runner.MigrateUp(202310231545);
+      //  runner.MigrateUp(202310231546);
+        runner.MigrateUp(202310231547);
     }
     
     public void RunMigrationForProducts()
@@ -80,7 +81,7 @@ public class MigrationService : IMigrationService
             .ConfigureRunner(rb => rb
                 .AddPostgres()
                 .WithGlobalConnectionString(connectionString)
-                .ScanIn(typeof(AddOrganizationTable).Assembly).For.Migrations())
+                .ScanIn(typeof(AddMessageTable).Assembly).For.Migrations())
             .AddLogging(lb => lb.AddFluentMigratorConsole())
             .BuildServiceProvider();
     }

@@ -30,12 +30,15 @@ public static class DependencyInjection
             });
         services.AddScoped<ITokenService, TokenService>();
         services.AddScoped<Organization>();
+        
+        services.AddScoped<Message>();
         services.AddScoped<Product>();
         services.AddScoped<User>();
         services.AddScoped<UserRepository>();
         services.AddScoped<OrganizationRepository>();
-        
+        services.AddScoped<MessageRepository>();
         services.AddScoped<IGenericRepository<Organization>, OrganizationRepository>();
+        services.AddScoped<IGenericRepository<Message>,MessageRepository>();
         services.AddScoped<IGenericRepository<Product>, ProductRepository>();
         services.AddScoped<IGenericRepository<User>, UserRepository>();
         services.AddTransient<IMigrationService, MigrationService>();
