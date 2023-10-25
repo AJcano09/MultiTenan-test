@@ -8,4 +8,6 @@ public class OrganizationRepository : GenericRepository<Organization>
     public OrganizationRepository(IDatabaseConnectionFactory factory) 
         : base(factory.CreateConnection(DbProvider.UsersAndOrganizations.ToString()))
     { }
+    
+    
 }

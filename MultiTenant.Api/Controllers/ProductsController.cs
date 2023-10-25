@@ -1,26 +1,43 @@
-using Microsoft.AspNetCore.Authorization;
+
 using Microsoft.AspNetCore.Mvc;
 using MultiTenant.Application.Models;
+using MultiTenant.Application.Repositories;
 
 namespace MultiTenant.Api.Controllers;
-[Authorize]
+//[Authorize]
 [ApiController]
 [Route("{slugTenant}/[controller]")]
 public class ProductsController : ControllerBase
 {
+    private readonly MessageRepository _messageRepository;
+
+    public ProductsController(MessageRepository messageRepository)
+    {
+        _messageRepository = messageRepository;
+    }
     [HttpGet]
     public IActionResult GetAllProducts()
     {
         var slug = RouteData.Values["slugTenant"]?.ToString();
-        // Usa el slug para determinar qué tenant es y traer sus productos
         return Ok(new {  });
     }
 
     [HttpPost]
-    [Authorize] 
-    public IActionResult CreateProduct([FromBody] ProductRequest request)
+    [Route("/message")]
+    //[Authorize] 
+    public async Task<IActionResult> CreateMessage([FromBody] CreateMessageDto request)
     {
-        var slug = RouteData.Values["slugTenant"].ToString();
-        return Ok();
+        var result = await ExecuteTask(request);
+        if (!result)
+            return BadRequest();
+        return Ok( );
+    }
+
+    private async Task<bool> ExecuteTask(CreateMessageDto request)
+    {
+        var delayedTime = new TimeSpan(request.Date.Ticks);
+        await Task.Delay(delayedTime, new CancellationToken());
+        var result = _messageRepository.SaveMessage(request);
+        return true;
     }
 }

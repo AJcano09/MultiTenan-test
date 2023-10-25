@@ -27,7 +27,7 @@ using (var scope = app.Services.CreateScope())
     var services = scope.ServiceProvider;
      var migrationRunnerService = services.GetRequiredService<IMigrationService>();
    migrationRunnerService.RunMigrationForOrganization("organizations");
-   migrationRunnerService.RunMigrationForProducts();
+  // migrationRunnerService.RunMigrationForProducts();
 }
 
 // Configure the HTTP request pipeline.
